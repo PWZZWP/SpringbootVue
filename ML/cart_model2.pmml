@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="SkLearn2PMML package" version="0.114.0"/>
+		<Timestamp>2025-03-30T02:53:08Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension name="repr">PMMLPipeline(steps=[('classifier', DecisionTreeClassifier(max_depth=4, random_state=0))])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="y" optype="categorical" dataType="integer">
+			<Value value="0"/>
+			<Value value="1"/>
+		</DataField>
+		<DataField name="httpOpen" optype="continuous" dataType="float"/>
+		<DataField name="tcpWindowSize&lt;=1024" optype="continuous" dataType="float"/>
+		<DataField name="zeroWindow&gt;10/min" optype="continuous" dataType="float"/>
+		<DataField name="duration&gt;300s" optype="continuous" dataType="float"/>
+	</DataDictionary>
+	<TreeModel functionName="classification" algorithmName="sklearn.tree._classes.DecisionTreeClassifier" missingValueStrategy="nullPrediction">
+		<MiningSchema>
+			<MiningField name="y" usageType="target"/>
+			<MiningField name="httpOpen"/>
+			<MiningField name="tcpWindowSize&lt;=1024"/>
+			<MiningField name="zeroWindow&gt;10/min"/>
+			<MiningField name="duration&gt;300s"/>
+		</MiningSchema>
+		<Output>
+			<OutputField name="probability(0)" optype="continuous" dataType="double" feature="probability" value="0"/>
+			<OutputField name="probability(1)" optype="continuous" dataType="double" feature="probability" value="1"/>
+		</Output>
+		<LocalTransformations>
+			<DerivedField name="double(httpOpen)" optype="continuous" dataType="double">
+				<FieldRef field="httpOpen"/>
+			</DerivedField>
+			<DerivedField name="double(tcpWindowSize&lt;=1024)" optype="continuous" dataType="double">
+				<FieldRef field="tcpWindowSize&lt;=1024"/>
+			</DerivedField>
+			<DerivedField name="double(zeroWindow&gt;10/min)" optype="continuous" dataType="double">
+				<FieldRef field="zeroWindow&gt;10/min"/>
+			</DerivedField>
+			<DerivedField name="double(duration&gt;300s)" optype="continuous" dataType="double">
+				<FieldRef field="duration&gt;300s"/>
+			</DerivedField>
+		</LocalTransformations>
+		<Node>
+			<True/>
+			<Node score="1" recordCount="1">
+				<SimplePredicate field="double(httpOpen)" operator="lessOrEqual" value="0.5"/>
+				<ScoreDistribution value="0" recordCount="0"/>
+				<ScoreDistribution value="1" recordCount="1"/>
+			</Node>
+			<Node score="1" recordCount="1">
+				<SimplePredicate field="double(tcpWindowSize&lt;=1024)" operator="lessOrEqual" value="0.5"/>
+				<ScoreDistribution value="0" recordCount="0"/>
+				<ScoreDistribution value="1" recordCount="1"/>
+			</Node>
+			<Node score="1" recordCount="1">
+				<SimplePredicate field="double(zeroWindow&gt;10/min)" operator="lessOrEqual" value="0.5"/>
+				<ScoreDistribution value="0" recordCount="0"/>
+				<ScoreDistribution value="1" recordCount="1"/>
+			</Node>
+			<Node score="1" recordCount="1">
+				<SimplePredicate field="double(duration&gt;300s)" operator="lessOrEqual" value="0.5"/>
+				<ScoreDistribution value="0" recordCount="0"/>
+				<ScoreDistribution value="1" recordCount="1"/>
+			</Node>
+			<Node score="0" recordCount="1">
+				<True/>
+				<ScoreDistribution value="0" recordCount="0.9751861042183623"/>
+				<ScoreDistribution value="1" recordCount="0.02481389578163772"/>
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
