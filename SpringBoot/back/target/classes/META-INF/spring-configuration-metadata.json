@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "pcap",
+      "type": "com.example.common.PcapConfig",
+      "sourceType": "com.example.common.PcapConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "pcap.save-path",
+      "type": "java.lang.String",
+      "sourceType": "com.example.common.PcapConfig"
+    }
+  ],
+  "hints": []
+}

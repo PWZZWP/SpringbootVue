@@ -1,0 +1,64 @@
+.body{
+    margin:0;
+    padding:0;
+    font-size: 16px;
+    color: #333;
+}
+.card{
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow:0 0 8px rgba(0 ,0 ,0, .12)
+}
+.New_button1{
+    background:
+    linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    border-radius: 20px;
+    background-size: 400%;
+}
+.New_button1:hover{
+    animation: sun 8s infinite;
+}
+@keyframes sun{
+    100%{
+        background-position: -400% 0;
+    }
+}
+.New_button2{
+    background: linear-gradient(90deg, #FF69B4, #87CEFA, #00BFFF, #FF69B4);
+    border-radius: 20px;
+    background-size: 400%;
+}
+.New_button2:hover{
+    animation: sun 8s infinite;
+}
+.New_button3{
+    background:
+linear-gradient(90deg, #00BFFF, #9370DB, #8A2BE2, #00BFFF);
+    border-radius: 20px;
+    background-size: 400%;
+}
+.New_button3:hover{
+    animation: sun 8s infinite;
+}
+
+.New_button4{
+    background:
+            linear-gradient(90deg, #0066ff, #70bedb, #2b43e2,#0066ff);
+    border-radius: 20px;
+    background-size: 400%;
+}
+.New_button4:hover{
+    animation: sun 8s infinite;
+}
+
+.New_button5{
+    background:
+            linear-gradient(90deg, #00ffe1, #c470db, #dc2be2,#00ffe1);
+    border-radius: 20px;
+    background-size: 400%;
+}
+.New_button5:hover{
+    animation: sun 8s infinite;
+}
+

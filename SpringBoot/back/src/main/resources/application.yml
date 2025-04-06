@@ -1,0 +1,22 @@
+server:
+  port: 9090
+
+# \u6570\u636E\u5E93\u914D\u7F6E
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/monitor?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+
+# 配置mybatis实体和xml映射
+mybatis:
+  ## 映射xml
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 配置日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    #将数据库表列名中的下划线_自动转换为Java对象属性名的驼峰式eg:user_name->userName
+pcap:
+  save-path: ./captures/  # application.yml

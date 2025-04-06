@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ArticleMapper">
+    <select id="selectAll" resultType="com.example.entity.ArticleEntity">
+# resultType="com.example.entity.ArticleEntity"将查询结果自动映射到ArticleEntity实体类
+        #       title参数存在时自动生成like条件，user.name as Name是字段别名的用法
+# ，它的作用是为查询结果中的字段user.name指定一个更匹配实体类属性名的标识符
+        select article.* from article
+        left join user on article.user_id = user.id
+        where 1=1
+            <if test="title != null"> and article.title like concat('%',#{title},'%')</if>
+            <if test="userId != null">and article.user_id = #{userId}</if>
+            <if test="role =='USER'">and article.role = #{role}</if>
+
+        order by article.id desc
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.ArticleEntity">
+        insert into `article` (title, content, img, time,description,user_id,role)
+        values (#{title}, #{content}, #{img}, #{time},#{description},#{userId},#{role})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.ArticleEntity">
+        update `article` set title=#{title},content=#{content},img=#{img},time=#{time},
+                           description=#{description},user_id=#{userId},role=#{role}
+        where id=#{id}
+    </update>
+</mapper>

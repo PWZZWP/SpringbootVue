@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TrafficMapper">
+
+    <select id="selectAll" resultType="com.example.entity.TrafficEntity">
+        SELECT
+        t.*,
+        u.id AS userId,
+        u.role AS userRole
+        FROM traffic_data t
+        LEFT JOIN user u ON t.user_id = u.id
+        <where>
+            <!-- 通用搜索条件 -->
+            <if test="srcIp != null and srcIp != ''">
+                AND (t.src_ip LIKE CONCAT('%', #{srcIp}, '%')
+                OR t.dst_ip LIKE CONCAT('%', #{srcIp}, '%'))
+            </if>
+
+            <!-- 批量ID查询 -->
+            <if test="idsArr != null and idsArr.length > 0">
+                AND t.id IN
+                <foreach collection="idsArr" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+
+            <!-- 用户权限过滤 -->
+            <if test="userId != null">
+                AND t.user_id = #{userId}
+            </if>
+
+            <!-- 角色过滤（可选） -->
+            <if test="role != null">
+                AND u.role = #{role}
+            </if>
+        </where>
+        ORDER BY t.id DESC
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.TrafficEntity">
+        insert into `traffic_data` (src_ip,dst_ip,packet_size,user_id,label,date,request_frequency,role)
+        values(#{srcIp},#{dstIp},#{packetSize},#{userId},#{label},#{date},#{requestFrequency},#{role})
+    </insert>
+
+    <update id="updateById">
+        update `traffic_data` set src_ip=#{srcIp},dst_ip=#{dstIp},packet_size=#{packetSize},user_id=#{userId},label=#{label},date=#{date},request_frequency=#{requestFrequency},role=#{role}
+        where id = #{id}
+    </update>
+</mapper>
